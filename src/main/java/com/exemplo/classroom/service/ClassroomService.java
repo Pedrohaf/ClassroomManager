@@ -1,42 +1,19 @@
 package com.exemplo.classroom.service;
 
-import com.exemplo.classroom.model.Classroom;
-import com.exemplo.classroom.repository.ClassroomRepository;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+import com.exemplo.classroom.repository.ClassroomRepository; // <-- adicionado
+// ...existing code...
 @Service
 public class ClassroomService {
+
     private final ClassroomRepository repository;
 
+    @Autowired
     public ClassroomService(ClassroomRepository repository) {
         this.repository = repository;
     }
 
-    public List<Classroom> findAll() {
-        return repository.findAll();
-    }
-
-    public Classroom findById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    public Classroom save(Classroom classroom) {
-        return repository.save(classroom);
-    }
-
-    public Classroom update(Long id, Classroom updated) {
-        return repository.findById(id)
-                .map(existing -> {
-                    existing.setName(updated.getName());
-                    existing.setCapacity(updated.getCapacity());
-                    existing.setLocation(updated.getLocation());
-                    return repository.save(existing);
-                })
-                .orElse(null);
-    }
-
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
+    // ... resto do código
 }
